@@ -1,0 +1,32 @@
+<div ng-controller="LoginCtrl as ctrl" layout="row" layout-padding="" layout-wrap="" layout-fill="" ng-cloak="" class="whiteframedemoBasicUsage">
+    <md-whiteframe class="md-whiteframe-1dp" layout-align="center">
+        <md-content layout-padding="">
+            <form name="credentialsForm">
+                <md-input-container class="md-block">
+                    <label>Email</label>
+                    <input required="" type="email" name="userEmail" ng-model="ctrl.userEmail" minlength="10" maxlength="100" ng-pattern="/^.+@.+\..+$/">
+
+                    <div ng-messages="credentialsForm.userEmail.$error" role="alert">
+                        <div ng-message-exp="['required', 'minlength', 'maxlength', 'pattern']">
+                            Your email must be between 10 and 100 characters long and look like an e-mail address.
+                        </div>
+                    </div>
+                </md-input-container>
+
+                <md-input-container class="md-block">
+                    <label>Password</label>
+                    <input type="password" required="" name="userPassword" ng-model="ctrl.userPassword">
+                    <div ng-messages="credentialsForm.userPassword.$error">
+                        <div ng-message="required">This is required.</div>
+                    </div>
+                </md-input-container>
+
+                <section layout="row" layout-sm="column" layout-align="end" layout-wrap="">
+                    <md-button class="md-raised" ng-click="ctrl.login()">Login</md-button>
+                    <md-button class="md-raised">Cancel</md-button>
+                </section>
+
+            </form>
+        </md-content>
+    </md-whiteframe>
+</div>

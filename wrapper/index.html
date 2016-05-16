@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="keywords" content="AngularJS" />
+    <meta name="description" content="Angular Material Paybook" />
+    <meta content="IE=edge, chrome=1" http-equiv="X-UA-Compatible" />
+    <title>Paybook Lite.Material</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <!-- Bower Components -->
+    <link href="bower_components/angular-material/angular-material.css" rel="stylesheet" />
+    <link href="bower_components/angular-material-data-table/dist/md-data-table.min.css" rel="stylesheet" type="text/css"/>
+    <!-- Local Styles-->
+    <link href="site.css" rel="stylesheet" />
+    <link href="app/styles/whiteframe.css" rel="stylesheet" />
+    <!-- CDN Styles -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body ng-app="App" layout="row" ng-controller="IndexCtrl as index" ng-cloak>
+    <div ng-if="index.loading" style="top:0px;left:0px;width:100%;height:100%;background-color:rgba(255,255,255,0.8);position: absolute;z-index:1000;">
+        <div style="top:0px;left:0px;width:100%;height:100%;" layout="row" layout-align="center center">
+            <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+        </div>
+    </div>
+    <md-sidenav class="site-sidenav md-sidenav-left md-whiteframe-z2"
+                md-component-id="left"
+                style="background-color:#106CC8;"
+                md-is-locked-open="$mdMedia('gt-sm')">
+        <md-toolbar layout="row" class="md-whiteframe-z1">
+            <div class="md-toolbar-tools">
+                <md-button class="md-icon-button" hide-gt-md aria-label="Show Menu">
+                    <ng-md-icon icon="{{menuIcon}}" style="fill:white;vertical-align:middle;" ng-click="menuToggle()" hide-gt-sm></ng-md-icon>
+                </md-button>
+                <h2 style="color:white;">Paybook.Lite</h2>
+            </div>
+        </md-toolbar>
+
+        <md-list>
+            <md-list-item ng-click="go('home','home');menuToggle();">
+                <i class="material-icons" style="color:white;">home</i> <p style="font-size:18px;color:white;">HOME</p>
+            </md-list-item>
+            <md-divider></md-divider>
+            <md-list-item ng-repeat="item in menuItems" ng-click="go(item.path,item.name);menuToggle();">
+                <p style="font-size:18px;color:white;">{{item.name | uppercase}}</p>
+            </md-list-item>
+        </md-list>
+
+    </md-sidenav>
+    <div layout="column" layout-fill>
+        <header style="color:white;">
+            <md-toolbar layout="row" class="md-whiteframe-z1 md-primary md-hue-2">
+                <div class="md-toolbar-tools">
+                    <md-button class="md-icon-button" hide-gt-md aria-label="Show Menu">
+                        <ng-md-icon icon="{{menuIcon}}" style="fill:white;" ng-click="menuToggle()"></ng-md-icon>
+                    </md-button>
+                    <h1 flex layout-align="center center" style="color:white;">
+                        <span>{{title | uppercase}}</span>
+                    </h1>
+                    <md-button aria-label="Login" ng-click="go('login','login');menuToggle();">
+                        <p style="font-size:18px;color:white;">Login</p>
+                    </md-button>
+                    <md-button aria-label="Sign Up" ng-click="go('signup','signup');menuToggle();">
+                        <p style="font-size:18px;color:white;">Sign Up</p>
+                    </md-button>
+                    <md-button aria-label="Sign Up" ng-click="logout();">
+                        <p style="font-size:18px;color:white;">Logout</p>
+                    </md-button>
+                </div>
+            </md-toolbar>
+        </header>
+        <main class="md-paddingm" layout="row" flex>
+            <md-content flex id="content">
+                <div class="fade-view" ui-view="">
+                </div>
+            </md-content>
+        </main>
+
+    </div>
+
+    <!-- 3rd party libraries -->
+    <script src="libraries/constants.js"></script>
+    <script src="libraries/helper.js"></script>
+    <script type="text/javascript" src="https://www.paybook.com/lib/js/widget/widget.js"></script>
+    <!-- Bower Components -->
+    <script src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/angular-aria/angular-aria.js"></script>
+    <script src="bower_components/angular-animate/angular-animate.js"></script>
+    <script src="bower_components/angular-material/angular-material.js"></script>
+    <script src="bower_components/angular-messages/angular-messages.min.js"></script>
+    <script src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
+    <script src="bower_components/angular-material-icons/angular-material-icons.min.js"></script>
+    <script src="bower_components/svg-morpheus/compile/minified/svg-morpheus.js"></script>
+    <script src="bower_components/angular-material-data-table/dist/md-data-table.min.js"></script>
+    <script src="bower_components/satellizer/satellizer.min.js"></script>
+    <script src="bower_components/ng-websocket/ng-websocket.js"></script>
+    <!-- Load app main script -->
+    <script src="app/app.js"></script>
+
+    <!-- Load services -->
+    <script src="app/services/tools.js"></script>
+    <!-- Load controllers -->
+    <script src="app/controllers/indexCtrl.js"></script>
+    <script src="app/controllers/homeCtrl.js"></script>
+    <script src="app/controllers/sideNavLeftCtrl.js"></script>
+    <script src="app/controllers/signupCtrl.js"></script>
+    <script src="app/controllers/loginCtrl.js"></script>
+    <script src="app/controllers/sitesCtrl.js"></script>
+    <script src="app/controllers/widgetCtrl.js"></script>
+    <script src="app/controllers/settingsCtrl.js"></script>
+    <!-- Load custom filters -->
+    <!-- Load custom directives -->
+</body>
+</html>

@@ -1,0 +1,68 @@
+<div ng-controller="SitesCtrl as menu" layout="row" class="whiteframedemoBasicUsage" ng-init="menu.init()">
+    <md-whiteframe class="md-whiteframe-1dp" layout-align="center" >
+        <md-content flex layout-padding>
+        	
+        	<div class="md-padding">
+			    <h1 class="md-title">Sitios</h1>
+			    <div layout="column">
+			      <md-input-container>
+			        <md-select ng-model="menu.selectedItem" md-on-close="menu.selectSite()">
+			          <md-optgroup label="Sitios">
+			            <md-option ng-value="item" ng-repeat="item in menu.sites">{{item.name}}</md-option>
+			          </md-optgroup>
+			        </md-select>
+			      </md-input-container>
+			    </div>
+			</div>
+			</br>
+
+			<md-divider></md-divider>
+
+			<h1 class="md-title">Credenciales</h1>
+			<md-list ng-repeat="credential in menu.credentials">
+				<md-list-item>
+					<img class="md-avatar" ng-src="{{menu.getAvatar(credential.avatar)}}">
+					<span>{{credential.name}}</span>
+
+					<md-button class="md-icon-button md-primary">
+						<i class="material-icons" ng-click="menu.deleteCredentials(credential,$index)">delete</i>
+					</md-button>
+					<md-button class="md-icon-button md-secondary" ng-click="menu.toggleSelectSection(credential)">
+						<i class="material-icons">keyboard_arrow_down</i>
+					</md-button>
+
+				</md-list-item>
+
+			   <md-list-item ng-show="menu.isSectionSelected(credential)"
+			          ng-repeat="account in credential.accounts"
+			          md-ink-ripple="#bbb">
+			          <span ng-bind="account.description"></span>
+			   </md-list-item>
+
+			</md-list>  
+        </md-content>
+        <md-sidenav class="md-sidenav-right md-whiteframe-z2" md-component-id="right">
+		      <md-toolbar class="md-theme-light">
+		        <h1 class="md-toolbar-tools">Credenciales</h1>
+		      </md-toolbar>
+		      <md-content ng-controller="RightCtrl" layout-padding>
+		        <form>
+			          <div ng-repeat="credential in $parent.credentials">
+			          		<img ng-if="credential.imgBase64File" data-ng-src="{{credential.imgBase64File}}"/>
+			          		<md-input-container>
+					            <label for="testInput">{{credential.label}}</label>
+					            <input type="{{credential.type}}" id="testInput"
+					                   ng-model="credential.value" md-autofocus>
+					        </md-input-container>
+			          </div>
+		        </form>
+		        <md-button ng-click="done()" class="md-primary">
+		          Done
+		        </md-button>
+		        <md-button ng-click="close()" class="md-primary">
+		          Cancel
+		        </md-button>
+		      </md-content>
+		</md-sidenav>
+    </md-whiteframe>
+</div>
