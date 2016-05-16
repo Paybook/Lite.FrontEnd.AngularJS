@@ -28,7 +28,19 @@ app.service('tools', function ($http,SatellizerStorage) {
 					};
 				}//End of IF
 			}else{
-				opts.url = opts.url + '?token=' + getToken(); 
+				if(data){
+					var payload = '';
+					for(var i in data){
+						if(payload == ''){
+							payload = i + '=' + data[i];	
+						}else{
+							payload = payload + '&' + i + '=' + data[i];	
+						}//End of IF
+					}//End of IF
+					opts.url = opts.url + '?token=' + getToken() + '&' + payload;
+				}else{
+					opts.url = opts.url + '?token=' + getToken();
+				}//End of IF
 			}//End of method
 			opts.method = method ? method : K.GET_METHOD;
 			$http(opts).then(function(response) {
