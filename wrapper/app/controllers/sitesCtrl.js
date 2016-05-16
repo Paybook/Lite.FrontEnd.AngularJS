@@ -45,6 +45,35 @@ app.controller('SitesCtrl', function ($scope, $mdSidenav, $log, tools, Satellize
 		}//End of IF
 	}//End of toggleSelectSection
 
+	self.toggleSelectAccount = function(account){
+		account.done = !account.done;
+		if(account.done){
+			$scope.$parent.index.loading = true;
+			var data = {
+				id_account : account.id_account
+			}//End of data
+			tools.backCall('transactions',data)
+				.then(function(response){
+					$scope.$parent.index.loading = false;
+					$scope.$apply(function(){
+						account.transactions = response.transactions;
+						console.log(response);
+					});
+				})
+				.catch(function(error){
+					console.log(error);
+				});
+		}//End of IF
+	}//End of toggleSelectSection
+
+	self.isSectionSelected = function(credential){
+		return credential.done;
+	}//End of isSectionSelected
+
+	self.isAccountSelected = function(account){
+		return account.done;
+	}//End of isSectionSelected
+
 	self.deleteCredentials = function(credential,index){
 
 		$scope.$parent.index.loading = true;
@@ -62,10 +91,6 @@ app.controller('SitesCtrl', function ($scope, $mdSidenav, $log, tools, Satellize
 				console.log(error);
 			});
 	}//End of deleteCredentials
-
-	self.isSectionSelected = function(credential){
-		return credential.done;
-	}//End of isSectionSelected
 
 	self.getAvatar = function(avatar){
 		return 'https://s.paybook.com' + avatar;

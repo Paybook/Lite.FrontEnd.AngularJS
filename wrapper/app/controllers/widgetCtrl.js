@@ -1,26 +1,26 @@
 'use strict';
 app.controller('WidgetCtrl', function ($scope,tools) {
-	// pbWidget.setDev();
+	pbWidget.setTest();
 	pbWidget.setToken(tools.getToken());
 	pbWidget.chooseBank();
 
 	var self = this;
 	self.credentials = [];
 
-	self.init = function(){
-		$scope.$parent.index.loading = true;
-			tools.backCall('credentials')
-				.then(function(response){
-					$scope.$apply(function(){
-						$scope.$parent.$parent.index.loading = false;
-						$scope.$parent.index.loading = false;
-					});//End of $apply
-					self.credentials = response;
-				})
-				.catch(function(error){
-					console.log(error);
-				});
-	}//End of init
+	// self.init = function(){
+	// 	$scope.$parent.index.loading = true;
+	// 		tools.backCall('credentials')
+	// 			.then(function(response){
+	// 				$scope.$apply(function(){
+	// 					$scope.$parent.$parent.index.loading = false;
+	// 					$scope.$parent.index.loading = false;
+	// 				});//End of $apply
+	// 				self.credentials = response;
+	// 			})
+	// 			.catch(function(error){
+	// 				console.log(error);
+	// 			});
+	// }//End of init
 
 	self.getAvatar = function(avatar){
 		return 'https://s.paybook.com' + avatar;

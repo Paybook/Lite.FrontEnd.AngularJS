@@ -22,7 +22,7 @@
 			<md-list ng-repeat="credential in menu.credentials">
 				<md-list-item>
 					<img class="md-avatar" ng-src="{{menu.getAvatar(credential.avatar)}}">
-					<span>{{credential.name}}</span>
+					<h3>{{credential.name}}</h3>
 
 					<md-button class="md-icon-button md-primary">
 						<i class="material-icons" ng-click="menu.deleteCredentials(credential,$index)">delete</i>
@@ -34,10 +34,21 @@
 				</md-list-item>
 
 			   <md-list-item ng-show="menu.isSectionSelected(credential)"
-			          ng-repeat="account in credential.accounts"
-			          md-ink-ripple="#bbb">
-			          <span ng-bind="account.name"></span>
+			          ng-repeat-start="account in credential.accounts"
+			          md-ink-ripple="#bbb"
+			          ng-click="menu.toggleSelectAccount(account)">
+			          <h4 ng-bind="account.name"></h4>
+			          <h4 class="md-secondary">{{ account.balance | currency}}</h4>
 			   </md-list-item>
+
+			   <div ng-repeat-end ng-show="menu.isAccountSelected(account)">
+				   	<md-list ng-repeat="transaction in account.transactions">
+		          		<md-list-item>
+		          			<p>{{transaction.description}}</p>
+		          			<p class="md-secondary">{{transaction.amount | currency}}</p>
+		          		</md-list-item>
+		          	</md-list> 
+			   </div>
 
 			</md-list>  
         </md-content>
