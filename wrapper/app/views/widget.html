@@ -1,7 +1,31 @@
-<div ng-controller="SitesCtrl as ctrl" layout="row" layout-padding="" layout-wrap="" layout-fill="" ng-cloak="" class="whiteframedemoBasicUsage" >
+<div ng-controller="SitesCtrl as widget" layout="row" layout-padding="" layout-wrap="" layout-fill="" ng-cloak="" class="whiteframedemoBasicUsage" ng-init="widget.init()">
     <md-whiteframe class="md-whiteframe-1dp" layout-align="center">
         <md-content layout-padding="">
             <div id="paybook-container"></div>
         </md-content>
+
+    	</br>
+    	<h1 class="md-title">Credenciales</h1>
+		<md-list ng-repeat="credential in widget.credentials">
+			<md-list-item>
+				<img class="md-avatar" ng-src="{{widget.getAvatar(credential.avatar)}}">
+				<span>{{credential.name}}</span>
+
+				<md-button class="md-icon-button md-primary">
+					<i class="material-icons" ng-click="widget.deleteCredentials(credential,$index)">delete</i>
+				</md-button>
+				<md-button class="md-icon-button md-secondary" ng-click="widget.toggleSelectSection(credential)">
+					<i class="material-icons">keyboard_arrow_down</i>
+				</md-button>
+
+			</md-list-item>
+
+		   <md-list-item ng-show="widget.isSectionSelected(credential)"
+		          ng-repeat="account in credential.accounts"
+		          md-ink-ripple="#bbb">
+		          <span ng-bind="account.name"></span>
+		   </md-list-item>
+
+		</md-list>  
     </md-whiteframe>
 </div>
