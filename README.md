@@ -20,3 +20,6 @@ To run dev enviroment:
 npm start
 ```
 and go to http://localhost:3000
+
+To make api requests for paybook methods, you will need set the url of the server in the file "master/wrapper/libraries/constants.js",
+or you can install [lite-python](https://github.com/Paybook/lite-python)
