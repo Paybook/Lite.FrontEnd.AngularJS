@@ -64,6 +64,7 @@ app.controller('SitesCtrl', function ($scope, $mdSidenav, $log, tools, Satellize
 					});
 				})
 				.catch(function(error){
+					$scope.$parent.index.loading = false;
 					console.log(error);
 				});
 		}//End of IF
@@ -91,6 +92,7 @@ app.controller('SitesCtrl', function ($scope, $mdSidenav, $log, tools, Satellize
 				});//End of $apply
 			})
 			.catch(function(error){
+				$scope.$parent.index.loading = false;
 				console.log(error);
 			});
 	}//End of deleteCredentials
@@ -123,6 +125,7 @@ app.controller('SitesCtrl', function ($scope, $mdSidenav, $log, tools, Satellize
 						}//End of IF
 					})
 					.catch(function(error){
+						$scope.$parent.$parent.index.loading = false;
 						console.log(error);
 					});
 			})
