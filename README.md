@@ -3,7 +3,7 @@
 
 ## Overview
 
-**Lite.Paybook.React**, is a frontend based on angularjs that people can use to develop a single page application and connect it with paybook.
+**Lite.Paybook.AngularJs**, is a frontend based on angularjs that people can use to develop a single page application and connect it with paybook.
 
 ### Install
 
