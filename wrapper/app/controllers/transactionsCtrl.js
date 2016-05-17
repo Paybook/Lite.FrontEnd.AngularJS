@@ -59,39 +59,73 @@ app.controller('TransactionsCtrl', function($scope,$timeout, $q, $log, tools,$ro
 
 	self.init = function(){
 		
-		var data = {
-			id_site : getParameterByName('id_site')
-		};//End of data
-		tools.backCall('accounts',data)
-			.then(function(response){
-				for(var i=0;i<response.length;i++){
-					self.accounts[response[i].id_account] = response[i].name; 
-				}//End of FOR
-				tools.backCall('transactions',data)
-					.then(function(response){
-						self.all.count = response.transactions.length; 
-						for(var i=0; i<response.transactions.length;i++){
-							var transaction = {
-								"description": response.transactions[i].description,
-								"account": {
-									"id" : response.transactions[i].id_account,
-									"name" : self.accounts[response.transactions[i].id_account]
-								},
-								"amount": response.transactions[i].amount,
-							};//End of IF
+		
+		if(getParameterByName('id_site')){
+			var data = {
+				id_site : getParameterByName('id_site')
+			};//End of data
+			tools.backCall('accounts',data)
+				.then(function(response){
+					for(var i=0;i<response.length;i++){
+						self.accounts[response[i].id_account] = response[i].name; 
+					}//End of FOR
+					tools.backCall('transactions',data)
+						.then(function(response){
+							self.all.count = response.transactions.length; 
+							for(var i=0; i<response.transactions.length;i++){
+								var transaction = {
+									"description": response.transactions[i].description,
+									"account": {
+										"id" : response.transactions[i].id_account,
+										"name" : self.accounts[response.transactions[i].id_account]
+									},
+									"amount": response.transactions[i].amount,
+								};//End of IF
 
-							self.all.data.push(transaction);							
-						}//End of FOR
-						self.getDesserts();
-					})
-					.catch(function(error){
-						console.log(error);
-					});
-			})
-			.catch(function(error){
-				$location.path("/login");
-				window.location = window.location.protocol +  '//' + window.location.host + '/#/login'
-			});
+								self.all.data.push(transaction);							
+							}//End of FOR
+							self.getDesserts();
+						})
+						.catch(function(error){
+							console.log(error);
+						});
+				})
+				.catch(function(error){
+					$location.path("/login");
+					window.location = window.location.protocol +  '//' + window.location.host + '/#/login'
+				});
+		}else{
+			tools.backCall('accounts')
+				.then(function(response){
+					for(var i=0;i<response.length;i++){
+						self.accounts[response[i].id_account] = response[i].name; 
+					}//End of FOR
+					tools.backCall('transactions')
+						.then(function(response){
+							self.all.count = response.transactions.length; 
+							for(var i=0; i<response.transactions.length;i++){
+								var transaction = {
+									"description": response.transactions[i].description,
+									"account": {
+										"id" : response.transactions[i].id_account,
+										"name" : self.accounts[response.transactions[i].id_account]
+									},
+									"amount": response.transactions[i].amount,
+								};//End of IF
+
+								self.all.data.push(transaction);							
+							}//End of FOR
+							self.getDesserts();
+						})
+						.catch(function(error){
+							console.log(error);
+						});
+				})
+				.catch(function(error){
+					$location.path("/login");
+					window.location = window.location.protocol +  '//' + window.location.host + '/#/login'
+				});
+		}//End of IF
 		
 	}//End of init
 
