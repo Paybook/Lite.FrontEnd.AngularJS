@@ -15,6 +15,12 @@ git clone https://github.com/Paybook/lite-frontend-angularjs.git
 ```sh
 npm install
 ```
+```sh
+cd wrapper
+```
+```sh
+bower install
+```
 To run dev enviroment:
 ```sh
 npm start
