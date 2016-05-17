@@ -1,5 +1,6 @@
 'use strict';
-app.controller('WidgetCtrl', function ($scope,tools) {
+app.controller('WidgetCtrl', function ($scope,tools,$location) {
+
 	pbWidget.setTest();
 	pbWidget.setToken(tools.getToken());
 	pbWidget.chooseBank();

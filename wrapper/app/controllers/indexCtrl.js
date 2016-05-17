@@ -1,8 +1,8 @@
 ﻿'use strict';
 app.controller('IndexCtrl', function ($scope, $mdSidenav, $state, $auth, $location) {
     $scope.menuItems = [
-      { name: 'sites', path: 'sites' },
-      { name: 'widget', path: 'widget' },
+      { name: 'accounts', path: 'accounts' },
+      { name: 'transactions', path: 'transactions' },
       { name: 'settings', path: 'settings' },
     ];
 

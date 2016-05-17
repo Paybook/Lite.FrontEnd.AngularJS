@@ -1,5 +1,6 @@
 ﻿'use strict';
-app.controller('SignupCtrl', function($timeout, $q, $log,$auth, $location) {
+app.controller('SignupCtrl', function($scope,$timeout, $q, $log,$auth, $location) {
+    $scope.$parent.index.loading = true;
     var vm = this;
     vm.signup = function() {
     	console.log("signup");

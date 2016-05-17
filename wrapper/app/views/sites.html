@@ -1,9 +1,8 @@
 <div ng-controller="SitesCtrl as menu" layout="row" class="whiteframedemoBasicUsage" ng-init="menu.init()">
     <md-whiteframe class="md-whiteframe-1dp" layout-align="center" >
-        <md-content flex layout-padding>
-        	
+        <md-content flex layout-padding ng-if="!menu.widget">
         	<div class="md-padding">
-			    <h1 class="md-title">Sitios</h1>
+			    <h1 class="md-title">Sites</h1>
 			    <div layout="column">
 			      <md-input-container>
 			        <md-select ng-model="menu.selectedItem" md-on-close="menu.selectSite()">
@@ -18,16 +17,17 @@
 
 			<md-divider></md-divider>
 
-			<h1 class="md-title">Credenciales</h1>
+			<h1 class="md-title">Credentials</h1>
 			<md-list ng-repeat="credential in menu.credentials">
-				<md-list-item>
+				<md-list-item  ng-click="menu.toggleSelectSection(credential)">
 					<img class="md-avatar" ng-src="{{menu.getAvatar(credential.avatar)}}">
 					<h3>{{credential.name}}</h3>
-
-					<md-button class="md-icon-button md-primary">
-						<i class="material-icons" ng-click="menu.deleteCredentials(credential,$index)">delete</i>
-					</md-button>
-					<md-button class="md-icon-button md-secondary" ng-click="menu.toggleSelectSection(credential)">
+					<!--
+						<md-button class="md-icon-button md-primary">
+							<i class="material-icons" ng-click="menu.deleteCredentials(credential,$index)">delete</i>
+						</md-button>
+					-->
+					<md-button class="md-icon-button md-secondary">
 						<i class="material-icons">keyboard_arrow_down</i>
 					</md-button>
 
@@ -52,6 +52,46 @@
 
 			</md-list>  
         </md-content>
+		
+		<md-content flex layout-padding ng-if="menu.widget">
+			<div id="paybook-container"></div>
+
+			<h1 class="md-title">Credentials</h1>
+			<md-list ng-repeat="credential in menu.credentials">
+				<md-list-item ng-click="menu.toggleSelectSection(credential)">
+					<img class="md-avatar" ng-src="{{menu.getAvatar(credential.avatar)}}">
+					<h3>{{credential.name}}</h3>
+					<!--
+						<md-button class="md-icon-button md-primary">
+							<i class="material-icons" ng-click="menu.deleteCredentials(credential,$index)">delete</i>
+						</md-button>
+					-->
+					<md-button class="md-icon-button md-secondary">
+						<i class="material-icons">keyboard_arrow_down</i>
+					</md-button>
+
+				</md-list-item>
+
+			   <md-list-item ng-show="menu.isSectionSelected(credential)"
+			          ng-repeat-start="account in credential.accounts"
+			          md-ink-ripple="#bbb"
+			          ng-click="menu.toggleSelectAccount(account)">
+			          <h4 ng-bind="account.name"></h4>
+			          <h4 class="md-secondary">{{ account.balance | currency}}</h4>
+			   </md-list-item>
+
+			   <div ng-repeat-end ng-show="menu.isAccountSelected(account)">
+				   	<md-list ng-repeat="transaction in account.transactions">
+		          		<md-list-item>
+		          			<p>{{transaction.description}}</p>
+		          			<p class="md-secondary">{{transaction.amount | currency}}</p>
+		          		</md-list-item>
+		          	</md-list> 
+			   </div>
+
+			</md-list> 
+        </md-content>
+        
         <md-sidenav class="md-sidenav-right md-whiteframe-z2" md-component-id="right">
 		      <md-toolbar class="md-theme-light">
 		        <h1 class="md-toolbar-tools">Credenciales</h1>

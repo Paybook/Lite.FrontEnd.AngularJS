@@ -1,0 +1,33 @@
+<div ng-controller="TransactionsCtrl as table" layout="row" class="whiteframedemoBasicUsage" ng-init="table.init()">
+    <md-whiteframe class="md-whiteframe-1dp" layout-align="center" >
+        <md-content>
+           <md-toolbar class="md-table-toolbar md-default">
+              <div class="md-toolbar-tools">
+                <span>Transactions</span>
+              </div>
+            </md-toolbar>
+
+            <!-- exact table from live demo -->
+            <md-table-container>
+              <table md-table ng-model="table.selected" md-progress="promise">
+                <thead md-head>
+                  <tr md-row>
+                    <th md-column><span>Description</span></th>
+                    <th md-column><span>Account</span></th>
+                    <th md-column md-numeric>Amount</th>
+                  </tr>
+                </thead>
+                <tbody md-body>
+                  <tr md-row md-select="dessert" md-select-id="name" md-auto-select ng-repeat="dessert in table.desserts.data">
+                    <td md-cell>{{dessert.description}}</td>
+                    <td md-cell>{{dessert.account.name}}</td>
+                    <td md-cell>{{dessert.amount | currency }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </md-table-container>
+
+            <md-table-pagination md-limit="table.query.limit" md-limit-options="[5, 10, 15]" md-page="table.query.page" md-total="{{table.desserts.count}}" md-on-paginate="table.getDesserts" md-page-select></md-table-pagination>
+        </md-content>
+    </md-whiteframe>
+</div>

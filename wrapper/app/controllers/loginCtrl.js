@@ -1,5 +1,6 @@
 'use strict';
-app.controller('LoginCtrl', function($timeout, $q, $log,$auth, $location, $mdToast) {
+app.controller('LoginCtrl', function($scope,$timeout, $q, $log,$auth, $location, $mdToast) {
+    $scope.$parent.index.loading = false;
     var vm = this;
     vm.loginMessage = '';
     vm.login = function(){
@@ -10,7 +11,7 @@ app.controller('LoginCtrl', function($timeout, $q, $log,$auth, $location, $mdToa
         .then(function(){
             // Si se ha logueado correctamente, lo tratamos aquí.
             // Podemos también redirigirle a una ruta
-            $location.path("/sites")
+            $location.path("/accounts")
         })
         .catch(function(response){
             // Si ha habido errores llegamos a esta parte

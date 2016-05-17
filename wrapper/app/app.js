@@ -1,4 +1,4 @@
-﻿var app = angular.module('App', ['ui.router', 'ngMaterial', 'ngMessages', 'ngMdIcons', 'md.data.table','satellizer','ngWebsocket']);
+﻿var app = angular.module('App', ['ui.router', 'ngMaterial', 'ngMessages', 'ngMdIcons', 'md.data.table','satellizer','ngWebsocket','ngRoute']);
 
 app.config(function ($authProvider){
     // Parametros de configuración
@@ -8,7 +8,7 @@ app.config(function ($authProvider){
     $authProvider.tokenPrefix = "paybook";
 });
 
-app.config(function ($stateProvider,$urlRouterProvider) {
+app.config(function ($stateProvider,$urlRouterProvider,$routeProvider) {
     $urlRouterProvider.otherwise('/');
 
     $stateProvider.state("home", {
@@ -26,8 +26,8 @@ app.config(function ($stateProvider,$urlRouterProvider) {
         controller: "LoginCtrl",
         templateUrl: "app/views/login.html"
     })
-    $stateProvider.state("sites", {
-        url: "/sites",
+    $stateProvider.state("accounts", {
+        url: "/accounts",
         controller: "SitesCtrl",
         templateUrl: "app/views/sites.html"
     })
@@ -35,6 +35,11 @@ app.config(function ($stateProvider,$urlRouterProvider) {
         url: "/widget",
         controller: "WidgetCtrl",
         templateUrl: "app/views/widget.html"
+    })
+    $stateProvider.state("transactions", {
+        url: "/transactions",
+        controller: "TransactionsCtrl",
+        templateUrl: "app/views/transactions.html"
     })
     $stateProvider.state("settings", {
         url: "/settings",

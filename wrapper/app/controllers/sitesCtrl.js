@@ -1,7 +1,8 @@
 'use strict';
-app.controller('SitesCtrl', function ($scope, $mdSidenav, $log, tools, SatellizerStorage,$mdDialog, $mdToast) {
-	var self = this;
+app.controller('SitesCtrl', function ($scope, $mdSidenav, $log, tools, SatellizerStorage,$mdDialog, $mdToast,$location) {
 
+	var self = this;
+	self.widget = store.get('widget');
 	self.selectedItem = {};
 	self.credentials = [];
 	
@@ -26,23 +27,25 @@ app.controller('SitesCtrl', function ($scope, $mdSidenav, $log, tools, Satellize
 		self.toggleRight();
 	}//End of selectSite
 	self.toggleSelectSection = function(credential){
-		credential.done = !credential.done;
-		if(credential.done){
-			$scope.$parent.index.loading = true;
-			var data = {
-				id_site : credential.id_site
-			}//End of data
-			tools.backCall('accounts',data)
-				.then(function(response){
-					$scope.$parent.index.loading = false;
-					$scope.$apply(function(){
-						credential.accounts = response;
-					});
-				})
-				.catch(function(error){
-					console.log(error);
-				});
-		}//End of IF
+		window.location = window.location.protocol +  '//' + window.location.host + '/#/transactions?id_site=' + credential.id_site;
+		// $location.path(parameters)
+		// credential.done = !credential.done;
+		// if(credential.done){
+		// 	$scope.$parent.index.loading = true;
+		// 	var data = {
+		// 		id_site : credential.id_site
+		// 	}//End of data
+		// 	tools.backCall('accounts',data)
+		// 		.then(function(response){
+		// 			$scope.$parent.index.loading = false;
+		// 			$scope.$apply(function(){
+		// 				credential.accounts = response;
+		// 			});
+		// 		})
+		// 		.catch(function(error){
+		// 			console.log(error);
+		// 		});
+		// }//End of IF
 	}//End of toggleSelectSection
 
 	self.toggleSelectAccount = function(account){
@@ -97,6 +100,7 @@ app.controller('SitesCtrl', function ($scope, $mdSidenav, $log, tools, Satellize
 	}//End of getAvatar
 
 	self.init = function(){
+
 		$scope.$parent.index.loading = true;
 
 		tools.backCall('catalogues')
@@ -111,13 +115,20 @@ app.controller('SitesCtrl', function ($scope, $mdSidenav, $log, tools, Satellize
 						});//End of $apply
 						
 						self.credentials = response;
+
+						if(self.widget){
+							pbWidget.setTest();
+							pbWidget.setToken(tools.getToken());
+							pbWidget.chooseBank();
+						}//End of IF
 					})
 					.catch(function(error){
 						console.log(error);
 					});
 			})
 			.catch(function(error){
-				console.log(error);
+				window.location = window.location.protocol +  '//' + window.location.host + '/#/login';
+				$location.path("/login");
 			});
 
 		
