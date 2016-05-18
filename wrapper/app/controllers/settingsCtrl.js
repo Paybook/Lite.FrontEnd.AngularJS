@@ -14,7 +14,7 @@ app.controller('SettingsCtrl', function ($scope,$location,tools) {
 	if(development != undefined){
 		self.development = development;
 	}else{
-		self.development = true;
+		self.development = false;
 	}//End of IF
 
 	self.changeWidget = function(){
@@ -25,9 +25,11 @@ app.controller('SettingsCtrl', function ($scope,$location,tools) {
 		store.set('development',self.development);
 	}//End of changeWidget
 
-	if(self.development){
-		pbWidget.setTest();
-	}//End of IF
-	pbWidget.setToken(tools.getToken());
-	pbWidget.startOn('admin')
+	setTimeout(function(){
+		if(self.development){
+			pbWidget.setTest();
+		}//End of IF
+		pbWidget.setToken(tools.getToken());
+		pbWidget.startOn('admin')	
+	}, 3000);
 });
