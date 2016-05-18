@@ -11,6 +11,14 @@
                     </center>
                 </div>
                 <div flex style="margin:10px;">
+                    <span>Environment</span>
+                    <center>
+                        <md-switch ng-model="settings.development" aria-label="Development" ng-change="settings.changeDevelopment()">
+                            Development: {{ setting.development }}
+                        </md-switch>
+                    </center>
+                </div>
+                <div flex style="margin:10px;">
                     <span>Administration</span>
                     <div id="paybook-container"></div>
                 </div>

@@ -2,7 +2,19 @@
 app.controller('SitesCtrl', function ($scope, $mdSidenav, $log, tools, SatellizerStorage,$mdDialog, $mdToast,$location) {
 
 	var self = this;
-	self.widget = store.get('widget');
+
+	if(store.get('widget')){
+		self.widget = store.get('widget')
+	}else{
+		self.widget = false;
+	}//End of IF
+
+	if(store.get('development')){
+		self.development = store.get('development')
+	}else{
+		self.development = false;
+	}//End of IF
+
 	self.selectedItem = {};
 	self.credentials = [];
 	
@@ -105,7 +117,14 @@ app.controller('SitesCtrl', function ($scope, $mdSidenav, $log, tools, Satellize
 
 		$scope.$parent.index.loading = true;
 
-		tools.backCall('catalogues')
+		var data = null;
+		if(self.development){
+			data = {
+				is_test : true
+			}//end of data
+		}//End of IF
+
+		tools.backCall('catalogues',data)
 			.then(function(response){
 				self.sites = response;
 				tools.backCall('credentials')
@@ -119,7 +138,10 @@ app.controller('SitesCtrl', function ($scope, $mdSidenav, $log, tools, Satellize
 						self.credentials = response;
 
 						if(self.widget){
-							pbWidget.setTest();
+							console.log(self.development);
+							if(self.development === true){
+								pbWidget.setTest();
+							}//End of IF
 							pbWidget.setToken(tools.getToken());
 							pbWidget.chooseBank();
 						}//End of IF

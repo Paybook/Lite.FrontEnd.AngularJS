@@ -42,6 +42,7 @@ app.service('tools', function ($http,SatellizerStorage) {
 					opts.url = opts.url + '?token=' + getToken();
 				}//End of IF
 			}//End of method
+
 			opts.method = method ? method : K.GET_METHOD;
 			$http(opts).then(function(response) {
 				return fulfill(response.data);
