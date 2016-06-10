@@ -21,6 +21,10 @@ cd wrapper
 ```sh
 bower install
 ```
+If you have problems, try:
+```sh
+sudo bower install --allow-root
+```
 To run dev enviroment:
 ```sh
 npm start
